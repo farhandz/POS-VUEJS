@@ -2,8 +2,8 @@
   <div class="container-wrapper">
    <Header :sort="dropdown"  :data="haitao" :serch='farhan' />
    <Navbar  />
-   <Content :serch='search' :sort="sort" :data="haitao" />
-   <Aside :isActive = "isActive" :data="haitao" />
+   <FormEdit  />
+   <!-- <Aside :isActive = "isActive" :data="haitao" /> -->
    <Footer />
    <Modal :data="haitao" />
   </div>
@@ -12,10 +12,13 @@
 <script>
 // @ is an alias to /src
 import Modal from '../components/Modal'
-import Header from '../components/Header'
+import Header from '../components/edit/Header'
+import FormEdit from '../components/edit/FormEdit'
+
+// import Header from '../components/Header'
 import Navbar from '../components/Navbar'
-import Content from '../components/Content'
-import Aside from '../components/Aside'
+// import Content from '../components/Content'
+// import Aside from '../components/Aside'
 import Footer from '../components/Footer'
 
 export default {
@@ -25,7 +28,8 @@ export default {
       isActive: false,
       data: null,
       search: '',
-      sort: ''
+      sort: '',
+      idParams: ''
     }
   },
   methods: {
@@ -44,14 +48,12 @@ export default {
   components: {
     Header,
     Navbar,
-    Content,
-    Aside,
     Footer,
-    Modal
+    Modal,
+    FormEdit
   },
-  mounted () {
-    const data = document.querySelector('.menu-image')
-    console.log(data)
+  created () {
+    this.idParams = this.$route.params.id
   },
   computed: {
     classObject: function () {
