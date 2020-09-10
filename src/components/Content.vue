@@ -1,7 +1,7 @@
 <template>
      <main>
       <div class="image">
-        <div v-for="(item, index) in title" :key="index" @click="Clastole($event,index)"  class="tayo">
+        <div v-for="(item, index) in title" :key="index" class="tayo">
           <div class="menu-image">
             <img :src="`http://localhost:3000/${item.image}`"  alt="" />
             <p>{{item.title}}</p>
@@ -12,8 +12,8 @@
              <b-button  size="sm" variant=dark class=" ml-2 mb-2">
               <router-link :to="{ path: `/${item.id}` }"><b-icon icon="pencil-square" aria-label="Help"></b-icon></router-link>
             </b-button>
-             <b-button  @submit.prevent="delete1(index)" @click="delete1(item, index)" size="sm" variant=dark class=" ml-2 mb-2">
-                <b-icon icon="shop" aria-label="Help"></b-icon>
+             <b-button   @click="onBuy(item.id)" size="sm" variant=dark class=" ml-2 mb-2">
+                <b-icon icon="cart4" aria-label="Help"></b-icon>
             </b-button>
           </div>
         </div>
@@ -25,7 +25,7 @@
 import axios from 'axios'
 import swal from 'sweetalert'
 export default {
-  props: ['data', 'serch', 'sort'],
+  props: ['data', 'serch', 'sort', 'onBuy'],
   data () {
     return {
       nama: 'farhan ammar',

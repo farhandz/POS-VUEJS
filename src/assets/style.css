@@ -26,6 +26,10 @@ body {
         display: none;
     }
 
+    aside .non-active button {
+        display: none;
+    }
+
 
 
 }
@@ -46,9 +50,6 @@ body {
         background: white;
         padding-bottom: 100px;
     }
-
-
-
 
     footer {
         width: auto;
@@ -151,6 +152,7 @@ img {
 
 aside {
     background-color: #ffffff;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -161,6 +163,19 @@ aside {
     display: flex;
     flex-direction: column;
 
+}
+
+aside .content-aside {
+    margin: 50px auto;
+    padding: 50px;
+}
+
+aside .non-active button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #57CAD5;
+    border: none;
 }
 
 .tayo-nav {

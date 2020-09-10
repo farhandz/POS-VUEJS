@@ -1,15 +1,16 @@
 <template>
   <div class="container-wrapper">
-   <Header :sort="dropdown"  :data="haitao" :serch='farhan' />
+   <Header :cart="cart"  :sort="dropdown"  :data="haitao" :serch='farhan' />
    <Navbar  />
-   <Content :serch='search' :sort="sort" :data="haitao" />
-   <Aside :isActive = "isActive" :data="haitao" />
+   <Content :onBuy="onBuy" :serch='search' :sort="sort" :data="haitao" />
+   <Aside :cart="cart" :ct="ct" :isActive = "isActive" :data="haitao" />
    <Footer />
    <Modal :data="haitao" />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 // @ is an alias to /src
 import Modal from '../components/Modal'
 import Header from '../components/Header'
@@ -25,7 +26,11 @@ export default {
       isActive: false,
       data: null,
       search: '',
-      sort: ''
+      sort: '',
+      cart: [],
+      users: [],
+      ct: 1,
+      ttl: []
     }
   },
   methods: {
@@ -39,6 +44,18 @@ export default {
     dropdown: function (e) {
       this.sort = e
       // console.log(this.sort)
+    },
+    onBuy: function (id) {
+      // const mar = [...this.cart]
+      // this.ttl = [mar, this.users[0]]
+      const cart = this.cart.filter((e) => e.id === id)
+      if (cart.length === 0) {
+        const data = this.users.filter((e) => e.id === id)
+        data[0].qty = 1
+        this.cart = [...this.cart, data[0]]
+      } else {
+        cart.forEach(dt => { this.ct = (dt.qty += 1) })
+      }
     }
   },
   components: {
@@ -50,8 +67,10 @@ export default {
     Modal
   },
   mounted () {
-    const data = document.querySelector('.menu-image')
-    console.log(data)
+    axios.get('http://localhost:3000/api/produk')
+      .then(dt => {
+        this.users = dt.data
+      })
   },
   computed: {
     classObject: function () {

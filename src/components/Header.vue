@@ -17,7 +17,7 @@
         <div class="ctn1">
         <b-row>
           <b-col><b-icon icon="shop"  variant="success" scale="2"> </b-icon></b-col>
-          <b-col  variant="success"> 0</b-col>
+          <b-col><h1 variant="success"  >{{cart.length}}</h1></b-col>
         </b-row>
         </div>
       </div>
@@ -25,7 +25,7 @@
 </template>
 <script>
 export default {
-  props: ['data', 'serch', 'sort'],
+  props: ['data', 'serch', 'sort', 'cart'],
   data () {
     return {
       isActive: false,
