@@ -57,6 +57,7 @@
 
 <script>
 import axios from 'axios'
+import swal from 'sweetalert'
 export default {
   data () {
     return {
@@ -77,6 +78,7 @@ export default {
       this.inputCategory = e.target.value
     },
     SubmitForm: function () {
+      console.log(this.price)
       const formData = new FormData()
       formData.append('image', this.files, this.files.name)
       formData.append('title', this.name)
@@ -84,7 +86,15 @@ export default {
       formData.append('id_category', this.inputCategory)
       axios.post('http://localhost:3000/api/produk', formData, {
       }).then(dt => {
-        window.location = '/'
+        swal({
+          title: 'Good job!',
+          text: 'Success add Produk',
+          icon: 'success',
+          button: 'Aww yiss!'
+        })
+        setTimeout(() => {
+          window.location = '/'
+        }, 2000)
         // const status = JSON.parse(dt.data.response.status)
         // if (status === '200') {
         //   self.$router.push('/')

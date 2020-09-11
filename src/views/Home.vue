@@ -5,7 +5,7 @@
    <Content :onBuy="onBuy" :serch='search' :sort="sort" :data="haitao" />
    <Aside :cart="cart" :ct="ct" :isActive = "isActive" :data="haitao" />
    <Footer />
-   <Modal :data="haitao" />
+   <Modal :cart="cart" :data="haitao" />
   </div>
 </template>
 
@@ -54,7 +54,15 @@ export default {
         data[0].qty = 1
         this.cart = [...this.cart, data[0]]
       } else {
-        cart.forEach(dt => { this.ct = (dt.qty += 1) })
+        // cart.forEach(dt => { this.ct = (dt.qty += 1) })
+        const cartData = this.cart.map(el => {
+          if (el.id === id) {
+            el.qty += 1
+          }
+          return el
+        })
+        this.cart = cartData
+        console.log('ini', cart)
       }
     }
   },

@@ -17,6 +17,9 @@
             </b-button>
           </div>
         </div>
+       <div v-if="title.length === 0 " class="tayonasional">
+          <h1>produk nya nggak ada, manis....</h1>
+       </div>
       </div>
     </main>
 </template>
@@ -109,5 +112,11 @@ export default {
 </script>
 
 <style>
-
+/* .tayonasional {
+  color: dark;
+  position: absolute;
+  left: 500px;
+  background: darkgrey;
+  border-radius:  900px;
+} */
 </style>

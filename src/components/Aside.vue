@@ -27,7 +27,7 @@
             <h1>total</h1>
             <span>*belum termasuk pajak</span>
           </div>
-          <div class="ttl-jml"><h1 @change="jmlttl" >Rp. {{jmlttl}}</h1></div>
+          <div class="ttl-jml"><h1>Rp. {{ttl}}</h1></div>
         </div>
         <div class="checkout">
          <b-button v-b-modal.modal-1>Launch demo modal</b-button>
@@ -53,14 +53,29 @@ export default {
   },
   methods: {
     tambah: function (index) {
-      this.inc = this.cart[index].qty += +1
+      const idCart = this.cart[index].id
+      const plus = this.cart.filter(el => {
+        if (idCart === el.id) {
+          el.qty += 1
+        }
+        return el
+      })
+      this.cart = plus
     },
     kurang: function (index) {
-      if (this.dec <= 0) {
-        this.dec = this.cart[index].qty += +1
-      } else {
-        this.dec = this.cart[index].qty += -1
-      }
+      const idCart = this.cart[index].id
+      const mines = this.cart.filter(el => {
+        if (idCart === el.id) {
+          if (el.qty <= 1) {
+            this.dec = this.cart[index].qty += +1
+            el.qty = 1
+          } else {
+            el.qty -= 1
+          }
+        }
+        return el
+      })
+      this.cart = mines
     },
     data2: function () {
       window.location = '/'
@@ -70,8 +85,6 @@ export default {
     cart (data) {
       console.log(data)
       this.ttl = data.reduce((item, data) => {
-        console.log(data)
-        this.jmlttl = item + (data.harga * data.qty)
         return item + (data.harga * data.qty)
       }, 0)
     }

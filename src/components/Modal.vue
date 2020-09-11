@@ -11,33 +11,17 @@
             </div>
           </div>
           <div class="modal-body">
-            <div class="mdl-body">
-              <div class="list-item">Coffee Latte 1x</div>
-              <div class="price">15000</div>
-            </div>
-            <div class="mdl-body">
-              <div class="list-item">Coffee Latte 1x</div>
-              <div class="price">15000</div>
-            </div>
-            <div class="mdl-body">
-              <div class="list-item">Coffee Latte 1x</div>
-              <div class="price">15000</div>
-            </div>
-            <div class="mdl-body">
-              <div class="list-item">Coffee Latte 1x</div>
-              <div class="price">15000</div>
-            </div>
-            <div class="mdl-body">
-              <div class="list-item">Coffee Latte 1x</div>
-              <div class="price">15000</div>
+             <div v-for="(item, index) in cart" :key="index" class="mdl-body">
+              <div class="list-item">{{item.title}} {{item.qty}}x</div>
+              <div class="price">{{item.harga * item.qty}}</div>
             </div>
             <div class="mdl-body">
               <div></div>
-              <div class="price">total: 15000</div>
+              <div class="price">total: {{ttl}}</div>
             </div>
             <div class="font-weight-bold">Payment Cash</div>
             <div class="mdl-button">
-              <button class="print">Print</button>
+              <button @click="print" class="print">Print</button>
               <span class="font-weight-bold">or</span>
               <button class="print">Send Email</button>
             </div>
@@ -47,7 +31,35 @@
 </template>
 
 <script>
+import JsPDF from 'jspdf'
+// import JsPDFAutotable from 'jspdf-autotable'
 export default {
+  props: ['cart'],
+  data () {
+    return {
+      ttl: 0
+    }
+  },
+  components: {
+    // JsPDFAutotable
+  },
+  watch: {
+    cart (cart) {
+      this.ttl = cart.reduce((item, data) => {
+        console.log(data)
+        this.jmlttl = item + (data.harga * data.qty)
+        return item + (data.harga * data.qty)
+      }, 0)
+    }
+  },
+  methods: {
+    print: function () {
+      const pdfName = 'hai ganteng'
+      var doc = new JsPDF()
+      doc.text('hello world', 10, 10)
+      doc.save(pdfName + '.pdf')
+    }
+  }
 
 }
 </script>
